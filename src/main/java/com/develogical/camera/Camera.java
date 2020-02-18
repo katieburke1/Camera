@@ -2,16 +2,37 @@ package com.develogical.camera;
 
 public class Camera {
 
+    private final Sensor sensor;
+    private final MemoryCard card;
+    private boolean powerOff;
+
+    public Camera(Sensor sensor, MemoryCard card) {
+
+        this.sensor = sensor;
+        this.card = card;
+    }
+
     public void pressShutter() {
-        // not implemented
+        if (powerOff){
+
+        }
+        else {
+            card.write(sensor.readData(), new WriteCompleteListener() {
+                @Override
+                public void writeComplete() {
+
+                }
+            });
+        }
     }
 
     public void powerOn() {
-        // not implemented
+        sensor.powerUp();
     }
 
-    public void powerOff() {
-       // not implemented
+    public boolean powerOff() {
+        sensor.powerDown();
+        return powerOff = true;
     }
 }
 
